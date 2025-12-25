@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client for server-side
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+
 
 // In-memory rate limiting store (resets on server restart)
 // For production, consider using Redis or a database
@@ -77,7 +74,7 @@ async function verifyRecaptcha(token: string): Promise<{ success: boolean; score
 }
 
 // Check pending bookings for phone number
-async function checkPendingBookings(phone: string): Promise<number> {
+async function checkPendingBookings(phone: string, supabase: any): Promise<number> {
     const { count, error } = await supabase
         .from('bookings')
         .select('*', { count: 'exact', head: true })
@@ -93,6 +90,12 @@ async function checkPendingBookings(phone: string): Promise<number> {
 }
 
 export async function POST(request: NextRequest) {
+    // Initialize Supabase client for server-side
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
     try {
         const body = await request.json();
 
@@ -167,7 +170,7 @@ export async function POST(request: NextRequest) {
         }
 
         // 5. Phone-based pending booking limit
-        const pendingCount = await checkPendingBookings(customerPhone);
+        const pendingCount = await checkPendingBookings(customerPhone, supabase);
         if (pendingCount >= MAX_PENDING_PER_PHONE) {
             return NextResponse.json(
                 {

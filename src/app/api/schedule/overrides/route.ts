@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+
 
 // GET /api/schedule/overrides - Get all overrides
 export async function GET() {
     try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+
         const { data: overrides, error } = await supabase
             .from('schedule_overrides')
             .select('*')
@@ -29,6 +31,11 @@ export async function GET() {
 // POST /api/schedule/overrides - Create a new override
 export async function POST(request: NextRequest) {
     try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+
         const body = await request.json();
         const { date, is_closed, open_time, close_time, max_bookings_per_slot, reason } = body;
 
@@ -64,6 +71,11 @@ export async function POST(request: NextRequest) {
 // DELETE /api/schedule/overrides?date=YYYY-MM-DD - Delete an override
 export async function DELETE(request: NextRequest) {
     try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+
         const { searchParams } = new URL(request.url);
         const date = searchParams.get('date');
 

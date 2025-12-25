@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client for server-side
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+
 
 // Types
 interface ScheduleSetting {
@@ -47,8 +44,8 @@ function minutesToDisplayTime(minutes: number): string {
     const mins = minutes % 60;
     const period = hours >= 12 ? 'PM' : 'AM';
     const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
-    const displayMins = mins === 0 ? '' : `:${ mins.toString().padStart(2, '0') } `;
-    return `${ displayHour }${ displayMins === '' ? ':00' : displayMins } ${ period } `;
+    const displayMins = mins === 0 ? '' : `:${mins.toString().padStart(2, '0')} `;
+    return `${displayHour}${displayMins === '' ? ':00' : displayMins} ${period} `;
 }
 
 // Generate time slots for a given schedule configuration
@@ -82,6 +79,12 @@ function generateTimeSlots(
 // GET /api/schedule?date=YYYY-MM-DD - Get available slots for a specific date
 export async function GET(request: NextRequest) {
     try {
+        // Initialize Supabase client for server-side
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+
         const { searchParams } = new URL(request.url);
         const date = searchParams.get('date');
 
@@ -242,6 +245,12 @@ export async function GET(request: NextRequest) {
 // PUT /api/schedule - Update schedule settings
 export async function PUT(request: NextRequest) {
     try {
+        // Initialize Supabase client for server-side
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
+
         const body = await request.json();
         const { settings } = body;
 
