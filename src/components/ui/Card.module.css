@@ -1,0 +1,94 @@
+.card {
+    /* Premium Glassmorphism - More transparent */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-2xl);
+    /* Thin gold border */
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all var(--transition-normal);
+    width: 100%;
+    text-align: left;
+}
+
+/* Variants */
+.default {
+    box-shadow:
+        0 8px 32px rgba(196, 92, 53, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.elevated {
+    box-shadow:
+        0 12px 40px rgba(196, 92, 53, 0.15),
+        0 8px 24px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.outlined {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: none;
+    border: 1.5px solid rgba(212, 175, 55, 0.25);
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    box-shadow:
+        0 8px 32px rgba(196, 92, 53, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Padding */
+.padding-none {
+    padding: 0;
+}
+
+.padding-sm {
+    padding: var(--space-3);
+}
+
+.padding-md {
+    padding: var(--space-4);
+}
+
+.padding-lg {
+    padding: var(--space-6);
+}
+
+/* Clickable */
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow:
+        0 20px 50px -12px rgba(0, 0, 0, 0.15),
+        0 24px 60px -16px rgba(0, 0, 0, 0.1);
+}
+
+.clickable:active {
+    transform: translateY(-2px) scale(1.005);
+}
+
+/* Animation */
+.animate {
+    animation: fadeInUp var(--transition-slow) ease-out backwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

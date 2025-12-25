@@ -1,0 +1,497 @@
+.page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ==================== RICH MESH GRADIENT ==================== */
+.meshBackground {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(155deg,
+            var(--cream) 0%,
+            var(--cream-dark) 15%,
+            var(--warm-beige) 30%,
+            #f5d6c6 45%,
+            var(--terracotta-light) 70%,
+            var(--terracotta-base) 100%);
+    overflow: hidden;
+}
+
+.meshBackground::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+/* Animated floating orbs */
+.meshOrb1,
+.meshOrb2,
+.meshOrb3 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.7;
+    animation: floatOrb 18s ease-in-out infinite;
+}
+
+.meshOrb1 {
+    width: 400px;
+    height: 400px;
+    background: var(--terracotta-base);
+    top: -150px;
+    right: -120px;
+    animation-delay: 0s;
+}
+
+.meshOrb2 {
+    width: 350px;
+    height: 350px;
+    background: var(--gold-light);
+    top: 50%;
+    right: -100px;
+    opacity: 0.4;
+    animation-delay: -6s;
+    animation-direction: reverse;
+}
+
+.meshOrb3 {
+    width: 300px;
+    height: 300px;
+    background: var(--cream);
+    bottom: 10%;
+    left: -150px;
+    opacity: 0.7;
+    animation-delay: -12s;
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(20px, -30px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(-15px, 20px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(25px, 15px) scale(1.02);
+    }
+}
+
+.main {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-8) var(--container-padding) var(--space-8);
+    position: relative;
+    z-index: 1;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: var(--text-muted);
+}
+
+/* ==================== PROGRESS INDICATOR ==================== */
+.progressContainer {
+    margin-bottom: var(--space-6);
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.progressBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    /* Premium Glassmorphism - More transparent */
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 32px rgba(196, 92, 53, 0.1);
+}
+
+.progressStep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.stepCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    color: var(--bronze-light);
+    transition: all var(--transition-normal);
+}
+
+.stepComplete {
+    background: linear-gradient(135deg, var(--gold-base), var(--gold-light));
+    border-color: transparent;
+    color: var(--charcoal-warm);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.stepActive {
+    background: linear-gradient(135deg, var(--terracotta-base), var(--terracotta-light));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 12px rgba(196, 92, 53, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.stepLabel {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--bronze-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.progressLine {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-base), rgba(212, 175, 55, 0.3));
+    border-radius: var(--radius-full);
+    margin-bottom: 20px;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ==================== ERROR STATE ==================== */
+.errorState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+    min-height: 400px;
+}
+
+.errorIcon {
+    font-size: 48px;
+    margin-bottom: var(--space-4);
+}
+
+.errorTitle {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal-warm);
+    margin-bottom: var(--space-2);
+}
+
+.errorText {
+    font-size: var(--text-base);
+    color: var(--bronze-light);
+    margin-bottom: var(--space-6);
+    max-width: 300px;
+}
+
+/* ==================== SECTIONS ==================== */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: relative;
+}
+
+/* Error Banner for rate limiting / validation errors */
+.errorBanner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-xl);
+    color: #b91c1c;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+}
+
+.section {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.section:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.section:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.sectionTitle {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal-warm);
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.sectionTitle::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
+    border-radius: var(--radius-full);
+}
+
+.sectionDescription {
+    font-size: var(--text-sm);
+    color: var(--bronze-light);
+    margin-bottom: var(--space-4);
+    line-height: 1.5;
+}
+
+/* ==================== SUMMARY CARD ==================== */
+.summaryCard {
+    /* Premium Glassmorphism - More transparent */
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow:
+        0 8px 32px rgba(196, 92, 53, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+}
+
+.summaryRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+}
+
+.serviceImage {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-xl);
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 4px 12px rgba(196, 92, 53, 0.12);
+}
+
+.summaryDetails {
+    flex: 1;
+    min-width: 0;
+}
+
+.serviceName {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal-warm);
+    margin-bottom: var(--space-1);
+}
+
+.serviceDuration {
+    font-size: var(--text-sm);
+    color: var(--bronze-light);
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(212, 175, 55, 0.3) 20%,
+            rgba(212, 175, 55, 0.3) 80%,
+            transparent);
+    margin: 0 var(--space-4);
+}
+
+.scheduleInfo {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.scheduleItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.scheduleIcon {
+    font-size: var(--text-lg);
+    width: 28px;
+    text-align: center;
+}
+
+.scheduleText {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--charcoal-warm);
+}
+
+/* ==================== FORM FIELDS ==================== */
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+/* ==================== SUBMIT SECTION ==================== */
+.submitSection {
+    padding: var(--space-6) var(--space-6) var(--space-8);
+    /* Extend to full viewport width */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: calc(var(--space-8) * -1);
+    /* Seamless gradient - no visible edges */
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 20%,
+            rgba(255, 255, 255, 0.7) 50%,
+            rgba(255, 255, 255, 0.85) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: fadeInUp 0.6s ease-out 0.3s backwards;
+    /* Ensure no visible edges */
+    border: none;
+    box-shadow: none;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    padding: 0 var(--space-2);
+}
+
+.totalLabel {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--bronze-light);
+}
+
+.buttonGroup {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.buttonGroup>button:first-child {
+    flex: 0 0 auto;
+    min-width: 100px;
+}
+
+.buttonGroup>button:last-child {
+    flex: 1;
+}
+
+.confirmButton {
+    flex: 1;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (min-width: 768px) {
+    .main {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .submitSection {
+        width: 100%;
+        max-width: 600px;
+        position: static;
+        transform: none;
+        margin: 0 auto;
+        border-radius: var(--radius-2xl);
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+}

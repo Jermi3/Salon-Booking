@@ -1,0 +1,134 @@
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    animation: fadeInUp var(--transition-slow) ease-out backwards;
+}
+
+.card {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    /* Premium Glassmorphism */
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* Thin gold border */
+    border: 1px solid rgba(212, 175, 55, 0.3);
+
+    /* Warm terracotta-tinted shadows */
+    box-shadow:
+        0 8px 32px rgba(196, 92, 53, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    transition: all var(--transition-normal);
+}
+
+/* Full image wrapper */
+.imageWrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.imageWrapper img {
+    transition: transform var(--transition-slow);
+}
+
+.button:hover .imageWrapper img {
+    transform: scale(1.08);
+}
+
+/* Beautiful gradient overlay with warm tint */
+.cardOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            transparent 30%,
+            transparent 70%,
+            rgba(196, 92, 53, 0.06) 100%);
+    pointer-events: none;
+}
+
+/* Gold shine effect at top */
+.shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    z-index: 3;
+    background: linear-gradient(180deg,
+            rgba(212, 175, 55, 0.12) 0%,
+            rgba(255, 255, 255, 0.08) 40%,
+            transparent 100%);
+    border-radius: var(--radius-2xl) var(--radius-2xl) 50% 50%;
+    pointer-events: none;
+}
+
+/* Hover states - gold glow */
+.button:hover .card {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow:
+        0 8px 16px -4px rgba(196, 92, 53, 0.15),
+        0 20px 40px -8px rgba(212, 175, 55, 0.2),
+        0 40px 64px -16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.button:active .card {
+    transform: translateY(-4px) scale(1.01);
+}
+
+/* Label with gold arrow on hover */
+.label {
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--charcoal-warm);
+    text-align: center;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+/* Gold arrow on hover */
+.label::after {
+    content: ' →';
+    color: var(--gold-base);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.button:hover .label {
+    color: var(--terracotta-base);
+}
+
+.button:hover .label::after {
+    opacity: 1;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
