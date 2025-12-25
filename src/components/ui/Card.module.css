@@ -92,3 +92,32 @@
         transform: translateY(0);
     }
 }
+
+/* MOBILE PERFORMANCE: Reduce blur and disable hover animations */
+@media (max-width: 768px) {
+    .card {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .glass {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .clickable:hover {
+        transform: none;
+        box-shadow: inherit;
+    }
+
+    .clickable:active {
+        transform: none;
+    }
+}
+
+/* REDUCED MOTION: Disable animations */
+@media (prefers-reduced-motion: reduce) {
+    .animate {
+        animation: none;
+    }
+}

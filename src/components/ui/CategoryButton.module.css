@@ -132,3 +132,35 @@
         transform: translateY(0);
     }
 }
+
+/* MOBILE PERFORMANCE: Reduce blur and disable hover animations */
+@media (max-width: 768px) {
+    .card {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+
+    .button:hover .card {
+        transform: none;
+        box-shadow: inherit;
+    }
+
+    .button:hover .imageWrapper img {
+        transform: none;
+    }
+
+    .button:active .card {
+        transform: none;
+    }
+}
+
+/* REDUCED MOTION: Disable animations */
+@media (prefers-reduced-motion: reduce) {
+    .button {
+        animation: none;
+    }
+
+    .imageWrapper img {
+        transition: none;
+    }
+}

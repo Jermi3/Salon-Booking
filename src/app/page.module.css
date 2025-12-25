@@ -111,19 +111,15 @@
   }
 }
 
-/* MOBILE PERFORMANCE: Hide extra orbs and pause animations */
+/* MOBILE PERFORMANCE: Hide ALL orbs and disable animations */
 @media (max-width: 768px) {
 
+  .meshOrb1,
+  .meshOrb2,
   .meshOrb3,
   .meshOrb4,
   .meshOrb5 {
     display: none;
-  }
-
-  .meshOrb1,
-  .meshOrb2 {
-    filter: blur(40px);
-    animation: none;
   }
 }
 
@@ -226,6 +222,21 @@
   50% {
     opacity: 1;
     transform: scaleY(1.15);
+  }
+}
+
+/* MOBILE PERFORMANCE: Disable logo pulse animation */
+@media (max-width: 768px) {
+  .logoLines span {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* REDUCED MOTION: Disable pulse animation */
+@media (prefers-reduced-motion: reduce) {
+  .logoLines span {
+    animation: none;
   }
 }
 

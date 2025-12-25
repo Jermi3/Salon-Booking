@@ -86,17 +86,13 @@
     }
 }
 
-/* MOBILE PERFORMANCE: Hide extra orbs and pause animations */
+/* MOBILE PERFORMANCE: Hide ALL orbs and disable animations */
 @media (max-width: 768px) {
 
+    .meshOrb1,
     .meshOrb2,
     .meshOrb3 {
         display: none;
-    }
-
-    .meshOrb1 {
-        filter: blur(40px);
-        animation: none;
     }
 }
 
