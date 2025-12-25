@@ -675,6 +675,13 @@ function BookingContent() {
                                     const isClosed = date && closedDaysOfWeek.has(date.getDay());
                                     const isSelectable = isDateSelectable(date);
 
+                                    // create local isPast for styling
+                                    const isPast = date && (() => {
+                                        const dateToCheck = new Date(date);
+                                        dateToCheck.setHours(0, 0, 0, 0);
+                                        return dateToCheck <= today;
+                                    })();
+
                                     return (
                                         <button
                                             key={index}

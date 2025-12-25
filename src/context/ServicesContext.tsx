@@ -30,6 +30,7 @@ interface ServicesContextType {
     addCategory: (category: Omit<ServiceCategory, 'id' | 'services'>) => Promise<void>;
     updateCategory: (categoryId: string, updates: Partial<Omit<ServiceCategory, 'services'>>) => Promise<void>;
     deleteCategory: (categoryId: string) => Promise<void>;
+
     isLoading: boolean;
     refreshServices: () => Promise<void>;
 }
@@ -113,7 +114,7 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
             icon: cat.icon || '',
             image: cat.image || '',
             color: cat.color || '#E8B4B8',
-            services: categoryServices.map(({ categoryId, isCustom, ...service }) => service),
+            services: categoryServices.map(({ categoryId: _categoryId, isCustom: _isCustom, ...service }) => service),
         };
     });
 
