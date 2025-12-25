@@ -36,7 +36,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             }
 
             // Fetch services from Supabase for this category
-            const { data: dbServices, error: svcError } = await supabase
+            const { data: dbServices } = await supabase
                 .from('services')
                 .select('*')
                 .eq('category_id', slug)

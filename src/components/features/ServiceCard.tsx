@@ -27,6 +27,7 @@ export function ServiceCard({
     duration,
     image,
     popular,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     categoryId,
     delay = 0,
 }: ServiceCardProps) {

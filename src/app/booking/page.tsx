@@ -178,7 +178,6 @@ function BookingContent() {
     // Handle initial service and adding services (async for database)
     useEffect(() => {
         const loadServices = async () => {
-            setIsLoadingServices(true);
             const servicesToSet: ServiceWithCategory[] = [];
             const currentServiceIds = new Set<string>();
 
@@ -212,7 +211,6 @@ function BookingContent() {
             }
 
             setSelectedServices(servicesToSet);
-            setIsLoadingServices(false);
 
             // Clean up URL to canonical form ?services=id1,id2
             const canonicalServices = servicesToSet.map(s => s.id).join(",");
@@ -675,12 +673,7 @@ function BookingContent() {
                             <div className={styles.calendarGrid}>
                                 {calendarDays.map((date, index) => {
                                     const isClosed = date && closedDaysOfWeek.has(date.getDay());
-                                    const isPast = date && (() => {
-                                        const dateToCheck = new Date(date);
-                                        dateToCheck.setHours(0, 0, 0, 0);
-                                        return dateToCheck <= today;
-                                    })();
-                                    const isSelectable = date && !isPast && !isClosed;
+                                    const isSelectable = isDateSelectable(date);
 
                                     return (
                                         <button

@@ -177,7 +177,7 @@ export default function CategoriesPage() {
             await deleteCategory(deleteTarget.id);
             setShowDeleteConfirm(false);
             setDeleteTarget(null);
-        } catch (_error) {
+        } catch {
             alert('Failed to delete category. Make sure all services are removed first.');
         } finally {
             setIsDeleting(false);
@@ -225,7 +225,7 @@ export default function CategoriesPage() {
             setTimeout(() => {
                 handleCloseModal();
             }, 1500);
-        } catch (_error) {
+        } catch {
             alert(`Failed to ${modalMode} category. Please try again.`);
         } finally {
             setIsSubmitting(false);

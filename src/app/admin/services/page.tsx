@@ -204,7 +204,7 @@ export default function ServicesPage() {
             await deleteService(deleteTarget.id);
             setShowDeleteConfirm(false);
             setDeleteTarget(null);
-        } catch (_error) {
+        } catch {
             alert('Failed to delete service. Please try again.');
         } finally {
             setIsDeleting(false);
@@ -267,7 +267,7 @@ export default function ServicesPage() {
             setTimeout(() => {
                 handleCloseModal();
             }, 1500);
-        } catch (_error) {
+        } catch {
             alert(`Failed to ${modalMode} service. Please try again.`);
         } finally {
             setIsSubmitting(false);

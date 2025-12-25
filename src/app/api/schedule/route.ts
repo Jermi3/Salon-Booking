@@ -1,3 +1,4 @@
+```typescript
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
@@ -47,8 +48,8 @@ function minutesToDisplayTime(minutes: number): string {
     const mins = minutes % 60;
     const period = hours >= 12 ? 'PM' : 'AM';
     const displayHour = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
-    const displayMins = mins === 0 ? '' : `:${mins.toString().padStart(2, '0')}`;
-    return `${displayHour}${displayMins === '' ? ':00' : displayMins} ${period}`;
+    const displayMins = mins === 0 ? '' : `:${ mins.toString().padStart(2, '0') } `;
+    return `${ displayHour }${ displayMins === '' ? ':00' : displayMins } ${ period } `;
 }
 
 // Generate time slots for a given schedule configuration
