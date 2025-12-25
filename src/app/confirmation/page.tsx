@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { siteConfig } from "@/config/site.config";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+
 import { PriceTag } from "@/components/ui/PriceTag";
 import styles from "./page.module.css";
 
@@ -32,16 +32,27 @@ export default function ConfirmationPage() {
     const router = useRouter();
     const [booking, setBooking] = useState<BookingData | null>(null);
     const [showConfetti, setShowConfetti] = useState(true);
+    const [confettiPieces, setConfettiPieces] = useState<Array<{ left: string; delay: string; color: string }>>([]);
 
     useEffect(() => {
         const storedBooking = sessionStorage.getItem("booking");
         if (storedBooking) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setBooking(JSON.parse(storedBooking));
         } else {
             // No booking data found, redirect to home
             router.push("/");
             return;
         }
+
+        // Generate confetti positions on client side only to prevent hydration mismatch
+        setConfettiPieces(
+            [...Array(40)].map((_, i) => ({
+                left: `${Math.random() * 100}%`,
+                delay: `${Math.random() * 0.8}s`,
+                color: ["#d4af37", "#c45c35", "#e8dfd5", "#FFFFFF"][i % 4],
+            }))
+        );
 
         // Hide confetti after animation
         const timer = setTimeout(() => setShowConfetti(false), 5000);
@@ -99,14 +110,14 @@ export default function ConfirmationPage() {
             {/* Confetti Animation */}
             {showConfetti && (
                 <div className={styles.confetti}>
-                    {[...Array(40)].map((_, i) => (
+                    {confettiPieces.map((piece, i) => (
                         <div
                             key={i}
                             className={styles.confettiPiece}
                             style={{
-                                left: `${Math.random() * 100}%`,
-                                animationDelay: `${Math.random() * 0.8}s`,
-                                backgroundColor: ["#d4af37", "#c45c35", "#e8dfd5", "#FFFFFF"][i % 4],
+                                left: piece.left,
+                                animationDelay: piece.delay,
+                                backgroundColor: piece.color,
                             }}
                         />
                     ))}
@@ -130,7 +141,7 @@ export default function ConfirmationPage() {
                     <div className={styles.header}>
                         <h1 className={styles.title}>Booking Confirmed!</h1>
                         <p className={styles.subtitle}>
-                            We can't wait to pamper you
+                            We can&apos;t wait to pamper you
                         </p>
                     </div>
 

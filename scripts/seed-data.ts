@@ -373,6 +373,7 @@ async function seed() {
 
     // Insert services with proper category IDs
     console.log('💅 Inserting services...');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const allServices: Array<any> = [];
 
     for (const [categoryName, services] of Object.entries(servicesData)) {
@@ -382,12 +383,13 @@ async function seed() {
             continue;
         }
 
-        for (const service of services) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        services.forEach((service: any) => {
             allServices.push({
                 ...service,
                 category_id: catId,
             });
-        }
+        });
     }
 
     const { error: svcError } = await supabase.from('services').insert(allServices);

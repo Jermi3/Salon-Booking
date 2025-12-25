@@ -177,7 +177,7 @@ export default function CategoriesPage() {
             await deleteCategory(deleteTarget.id);
             setShowDeleteConfirm(false);
             setDeleteTarget(null);
-        } catch (error) {
+        } catch (_error) {
             alert('Failed to delete category. Make sure all services are removed first.');
         } finally {
             setIsDeleting(false);
@@ -225,7 +225,7 @@ export default function CategoriesPage() {
             setTimeout(() => {
                 handleCloseModal();
             }, 1500);
-        } catch (error) {
+        } catch (_error) {
             alert(`Failed to ${modalMode} category. Please try again.`);
         } finally {
             setIsSubmitting(false);
@@ -589,7 +589,7 @@ export default function CategoriesPage() {
                         </div>
                         <h2 className={styles.modalTitle}>Delete Category?</h2>
                         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-                            Are you sure you want to delete <strong>"{deleteTarget.name}"</strong>? All services in this category will need to be moved first.
+                            Are you sure you want to delete <strong>&quot;{deleteTarget.name}&quot;</strong>? All services in this category will need to be moved first.
                         </p>
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                             <button onClick={() => setShowDeleteConfirm(false)} disabled={isDeleting} style={{ padding: '0.75rem 1.5rem', background: 'transparent', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer' }}>

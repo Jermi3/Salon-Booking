@@ -55,9 +55,20 @@ function CustomerInfoContent() {
     const timeParam = searchParams.get("time");
 
     const [selectedServices, setSelectedServices] = useState<ServiceWithCategory[]>([]);
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-    const [selectedTime, setSelectedTime] = useState<string | null>(null);
-    const [isLoadingServices, setIsLoadingServices] = useState(true);
+
+    // Initialize date/time lazily to avoid side-effects
+    const [selectedDate] = useState<Date | null>(() => {
+        if (dateParam) {
+            const [year, month, day] = dateParam.split('-').map(Number);
+            return new Date(year, month - 1, day);
+        }
+        return null;
+    });
+
+    const [selectedTime] = useState<string | null>(() => {
+        return timeParam ? decodeURIComponent(timeParam) : null;
+    });
+
     const [formData, setFormData] = useState({
         name: "",
         phone: "",
@@ -70,7 +81,6 @@ function CustomerInfoContent() {
 
     useEffect(() => {
         const loadServices = async () => {
-            setIsLoadingServices(true);
             const services: ServiceWithCategory[] = [];
 
             if (servicesParam) {
@@ -85,20 +95,10 @@ function CustomerInfoContent() {
             }
 
             setSelectedServices(services);
-            setIsLoadingServices(false);
         };
 
         loadServices();
-
-        if (dateParam) {
-            // Parse date in local timezone (new Date("YYYY-MM-DD") interprets as UTC)
-            const [year, month, day] = dateParam.split('-').map(Number);
-            setSelectedDate(new Date(year, month - 1, day));
-        }
-        if (timeParam) {
-            setSelectedTime(decodeURIComponent(timeParam));
-        }
-    }, [servicesParam, serviceId, dateParam, timeParam]);
+    }, [servicesParam, serviceId]);
 
     const formatDate = (date: Date) => {
         return date.toLocaleDateString("en-US", {

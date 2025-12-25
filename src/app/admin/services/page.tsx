@@ -204,7 +204,7 @@ export default function ServicesPage() {
             await deleteService(deleteTarget.id);
             setShowDeleteConfirm(false);
             setDeleteTarget(null);
-        } catch (error) {
+        } catch (_error) {
             alert('Failed to delete service. Please try again.');
         } finally {
             setIsDeleting(false);
@@ -267,7 +267,7 @@ export default function ServicesPage() {
             setTimeout(() => {
                 handleCloseModal();
             }, 1500);
-        } catch (error) {
+        } catch (_error) {
             alert(`Failed to ${modalMode} service. Please try again.`);
         } finally {
             setIsSubmitting(false);
@@ -720,7 +720,7 @@ export default function ServicesPage() {
                         </div>
                         <h2 className={styles.modalTitle} style={{ marginBottom: '0.5rem' }}>Delete Service?</h2>
                         <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-                            Are you sure you want to delete <strong>"{deleteTarget.name}"</strong>? This action cannot be undone.
+                            Are you sure you want to delete <strong>&quot;{deleteTarget.name}&quot;</strong>? This action cannot be undone.
                         </p>
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                             <button onClick={() => setShowDeleteConfirm(false)} disabled={isDeleting} style={{ padding: '0.75rem 1.5rem', background: 'transparent', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '10px', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', color: 'var(--text-secondary)' }}>

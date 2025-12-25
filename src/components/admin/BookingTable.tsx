@@ -228,7 +228,7 @@ export default function BookingTable({ bookings, onStatusChange, onDelete }: Boo
                                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, minWidth: '200px' }}>
                                                             <span style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--bronze-light)', textTransform: 'uppercase' }}>📝 Customer Notes</span>
                                                             <span style={{ fontSize: '0.85rem', color: 'var(--charcoal-warm)', fontStyle: 'italic', whiteSpace: 'pre-wrap' }}>
-                                                                "{booking.notes}"
+                                                                &quot;{booking.notes}&quot;
                                                             </span>
                                                         </div>
                                                     )}

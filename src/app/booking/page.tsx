@@ -110,7 +110,7 @@ function BookingContent() {
     const [selectedServices, setSelectedServices] = useState<ServiceWithCategory[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
-    const [isLoadingServices, setIsLoadingServices] = useState(true);
+
 
     // Dynamic time slots from schedule API
     interface TimeSlot {
