@@ -1,10 +1,10 @@
 .card {
     overflow: hidden;
 
-    /* Premium Glassmorphism - More transparent */
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    /* Premium Glassmorphism - OPTIMIZED: reduced blur for better performance */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: var(--radius-2xl);
 
     /* Thin gold border */
@@ -82,7 +82,8 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
-    animation: pulse 2s ease-in-out infinite;
+    /* OPTIMIZED: Limited animation iterations for battery savings */
+    animation: pulse 2s ease-in-out 3;
 }
 
 @keyframes pulse {
@@ -94,6 +95,13 @@
 
     50% {
         box-shadow: 0 4px 20px rgba(212, 175, 55, 0.6);
+    }
+}
+
+/* REDUCED MOTION: Disable badge pulse animation */
+@media (prefers-reduced-motion: reduce) {
+    .badge {
+        animation: none;
     }
 }
 

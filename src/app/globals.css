@@ -701,3 +701,51 @@ h6 {
   border: none;
   margin: var(--space-4) 0;
 }
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Reduced Motion Preference - Accessibility & Battery Savings */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float,
+  .animate-shimmer,
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Mobile Performance Mode - Reduce GPU-intensive effects */
+@media (max-width: 768px) {
+
+  /* Lighter glassmorphism on mobile */
+  .glass,
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable floating animation on mobile for battery */
+  .animate-float {
+    animation: none;
+  }
+
+  /* Simpler hover effects on mobile */
+  .hover-lift:hover {
+    transform: none;
+  }
+
+  .floating-card:hover {
+    transform: none;
+  }
+}

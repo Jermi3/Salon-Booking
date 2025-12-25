@@ -21,77 +21,89 @@
     overflow: hidden;
 }
 
-/* Subtle texture overlay */
-.meshBackground::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-}
+/* REMOVED: SVG noise texture (heavy on GPU) */
 
-/* Animated floating orbs */
+/* Animated floating orbs - OPTIMIZED for performance */
 .meshOrb1,
 .meshOrb2,
 .meshOrb3 {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.7;
-    animation: floatOrb 18s ease-in-out infinite;
+    /* REDUCED: blur from 120px to 60px for better GPU performance */
+    filter: blur(60px);
+    opacity: 0.6;
+    /* GPU optimization hint */
+    will-change: transform;
+    /* SLOWER animation = less GPU work */
+    animation: floatOrb 25s ease-in-out infinite;
 }
 
 /* Terracotta glow */
 .meshOrb1 {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     background: var(--terracotta-base);
-    top: -150px;
-    right: -120px;
+    top: -100px;
+    right: -80px;
     animation-delay: 0s;
 }
 
 /* Gold accent */
 .meshOrb2 {
-    width: 350px;
-    height: 350px;
+    width: 250px;
+    height: 250px;
     background: var(--gold-light);
     top: 50%;
-    right: -100px;
+    right: -70px;
     opacity: 0.4;
-    animation-delay: -6s;
+    animation-delay: -8s;
     animation-direction: reverse;
 }
 
-/* Cream highlight */
+/* Cream highlight (hidden on mobile) */
 .meshOrb3 {
-    width: 300px;
-    height: 300px;
+    width: 220px;
+    height: 220px;
     background: var(--cream);
     bottom: 10%;
-    left: -150px;
-    opacity: 0.7;
-    animation-delay: -12s;
+    left: -100px;
+    opacity: 0.5;
+    animation-delay: -14s;
 }
 
+/* OPTIMIZED: Simpler animation with less GPU-intensive transforms */
 @keyframes floatOrb {
 
     0%,
     100% {
-        transform: translate(0, 0) scale(1);
-    }
-
-    25% {
-        transform: translate(20px, -30px) scale(1.05);
+        transform: translate(0, 0);
     }
 
     50% {
-        transform: translate(-15px, 20px) scale(0.95);
+        transform: translate(15px, -15px);
+    }
+}
+
+/* MOBILE PERFORMANCE: Hide extra orbs and pause animations */
+@media (max-width: 768px) {
+    .meshOrb3 {
+        display: none;
     }
 
-    75% {
-        transform: translate(25px, 15px) scale(1.02);
+    .meshOrb1,
+    .meshOrb2 {
+        filter: blur(40px);
+        animation: none;
+    }
+}
+
+/* REDUCED MOTION: Disable orb animations completely */
+@media (prefers-reduced-motion: reduce) {
+
+    .meshOrb1,
+    .meshOrb2,
+    .meshOrb3 {
+        animation: none;
     }
 }
 
@@ -103,10 +115,10 @@
     right: var(--space-4);
     z-index: 50;
 
-    /* Premium Glassmorphism - More transparent */
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    /* Premium Glassmorphism - OPTIMIZED: reduced blur for better performance */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-3xl);
     border: 1px solid rgba(212, 175, 55, 0.2);
     box-shadow:
@@ -408,10 +420,10 @@
 /* Selected Service Card - Premium Glassmorphism */
 .serviceCard {
     display: block;
-    /* More transparent glass */
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    /* OPTIMIZED: reduced blur for better performance */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-2xl);
     border: 1px solid rgba(212, 175, 55, 0.2);
     box-shadow:
@@ -543,8 +555,9 @@
     display: flex;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    /* OPTIMIZED: reduced blur for better performance */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1.5px solid rgba(212, 175, 55, 0.15);
     border-radius: var(--radius-xl);
     cursor: pointer;
@@ -741,10 +754,10 @@
 
 /* ==================== PREMIUM CALENDAR ==================== */
 .calendarContainer {
-    /* More transparent glass */
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    /* OPTIMIZED: reduced blur for better performance */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-2xl);
     border: 1px solid rgba(212, 175, 55, 0.2);
     box-shadow:
