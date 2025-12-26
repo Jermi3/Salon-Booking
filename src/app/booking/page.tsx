@@ -525,14 +525,14 @@ function BookingContent() {
                             </span>
                         </button>
 
-                        {/* Preview - always shows 3 popular services */}
+                        {/* Collapsed state - subtitle + 2 preview cards */}
                         {!isExpanded && (
                             <>
                                 <p className={styles.suggestionsSubtitle}>
                                     Tap to explore all our services
                                 </p>
                                 <div className={styles.suggestionsGrid}>
-                                    {filteredSuggestions.slice(0, 4).map((service) => (
+                                    {filteredSuggestions.slice(0, 2).map((service) => (
                                         <button
                                             key={service.id}
                                             type="button"
@@ -549,7 +549,7 @@ function BookingContent() {
                                                     backgroundImage: `url(${service.image})`,
                                                 }}
                                             >
-                                                <span className={styles.suggestionBadge}>Popular</span>
+                                                {service.popular && <span className={styles.suggestionBadge}>Popular</span>}
                                             </div>
                                             <div className={styles.suggestionContent}>
                                                 <h3 className={styles.suggestionName}>{service.name}</h3>
